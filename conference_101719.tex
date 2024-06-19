@@ -1,0 +1,373 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{A Brief Introduction to Artificial Neural Network Architectures}
+
+\author{\IEEEauthorblockN{Gio Lin}
+\IEEEauthorblockA{Department of Computer Engineering\\
+Delft University of Technology\\
+Delft, The Netherlands\\
+g.lin@student.tudelft.nl}
+}
+
+\maketitle
+
+\begin{abstract}
+In the ever-expanding field of Artificial Neural Networks, it is difficult for interested future students and researchers to start their exploration of this topic, due to it's expansiveness. A multitude of different network architectures exist, however a comprehensive overview remains elusive. The primary objective of this report is to provide a comprehensive overview, offering a starting point to those interested in the subject of Artificial Neural Networks. This report explains each core component of Artificial Neural Networks and offers explanations of various unique Artificial Neural Network Architectures. As the field of Artificial Neural Networks is dynamic, this report is open source. This enables future students and researchers to create updated versions.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Artificial Neural Network, Neural Network, Neural Network Comparison, Neural Network Overview
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+In the dynamic landscape of Artificial Neural Networks (ANNs), developing interest from future students and researchers is met with the challenge of exploring its expansive domain. This presents a difficulty in the start of their exploration of this topic. Despite the plethora of artificial neural network architectures, a comprehensive overview detailing each one with sufficient depth remains elusive. With this in mind, the primary objective of this report is to provide a comprehensive overview, offering a starting point to those interested in the subject of Artificial Neural Networks. The report lays out and explains each core component of ANNs and presents detailed descriptions and explanations of various unique ANN architectures.
+
+The report is structured as follows. First, \autoref{ANN Components} lays out and explains each core component of ANNs. Second, \autoref{Overview} describes each ANN architecture. Then, \autoref{Discussion} discusses the validity and actuality of this report. Lastly, \autoref{Conclusion} summarizes the report and lays out the key takeaways.
+
+\section{Basic Components of an Artificial Neural Network} \label{ANN Components}
+Artificial Neural Networks (ANNs) are a form of Artificial Intelligence (AI) that tries to mimic the function of the human brain. The human brain consists out of a large network of interconnected neurons. Each neuron operates as a cell executing simple tasks, such as responding to input signals. However, when these neurons form a network, a neural network, they are able to accomplish intricate tasks such as speech and image recognition \cite{zou2009overview}, \cite{abiodun2018state}. Like a biological neural network the ANN consists out of nodes interconnected with each other as a network, similar to neurons. Neurons have a system that accumulates inputs from its neighbours and when this accumulation crosses a certain threshold, the neuron emits an output for its neighbours. Through this system of input accumulation, threshold crossing and output generation the brain does computation. An ANN tries to emulate this process artificially.
+
+This paper reviews and compares multiple Neural Network architectures that try to recreate the functioning of the human brain. For this review and comparison, a definition is needed to break down each architecture into its individual components. \cite{zou2009overview} presents a definition that encompasses each basic component. \cite{zou2009overview} names three critical components that each neural network has, these are:  node character, network topology, and learning rules. With the following definitions: ``Node character determines how signals are processed by the node, such as the number of inputs and outputs associated with the node, the weight associated with each input and output, and the activation function. Network topology determines the ways nodes are organized and connected. Learning rules determine how the weights are initialized and adjusted.'' \cite[p. 17]{zou2009overview}. The definition provided by \cite{zou2009overview} effectively encapsulates how ANNs are typically depicted or portrayed, such as in \cite{abiodun2018state} and \cite{Goodfellow-et-al-2016}. Therefore, this paper uses this definition to break down the structure of an ANN, so that each type can more easily be explained in \autoref{Overview}. A short explanation of each core component based on \cite{zou2009overview} will now follow, a more granular definition of node character, network topology and learning rules can be found in \cite{zou2009overview}.
+
+The components that constitute node character are the individual nodes in an ANN and how a node processes information. A node has one or more inputs from its neighbours, where each input has an associated weight. When the weighted sum exceeds the threshold of the node, the node activates. This activation is determined by the activation function associated with that node. This activation function is a mathematical function that determines the output of the node. The activation function within the node is determined by the specific type of ANN and its intended application.
+
+The term ``network topology'' encompasses elements such as the structural arrangement of the ANN. Nodes are arranged vertically in groups, typically referred to as layers, where each layer serves a specific function. An ANN usually consists out of an input layer, an output layer and a number hidden layers, ranging from zero to multiple. Between the nodes there can be two types of connection, a feedforward connection and a feedback connection. A feedforward connection is a connection between two layers, where the output of a node in a layer goes to the input of a node in the next layer. A feedback connection is a connection within the layer or to a previous layer, where the output of a node in a layer goes to the input of itself, to the input a neighbour within the layer or to the input of a node in a previous layer. Given the two previously mentioned types of connections, neural networks can be categorized into two distinct types: Feedforward Neural Networks and Feedback Neural Networks. A Feedforward Neural Network exclusively consists out of feedforward connections. A Feedback Neural Network has both feedforward and feedback connections.
+
+ANNs use a learning process to be trained for or execute their designated task. There are two main categories for learning: supervised learning and unsupervised learning. In supervised learning labeled data is given to the ANN to train on. This means that for each given input it knows what the output is supposed to be. The weights in each layer are adjusted in such a way that the network output is as close as possible to the correct output. A network that uses supervised learning needs to be trained before it can be used for its intended application. For unsupervised learning, the data is not labeled, which means there is no "correct" output for a given input. Here, the goal is to find patterns, trends or an anomaly in the data provided as input. There are many approaches to learning in ANNs, some of the most commonly used approaches are error correction techniques, such as \cite{rumelhart1986learning} or nearest neighbour techniques, such as \cite{cover1967nearest}.
+
+\section{Overview} \label{Overview}
+Before each ANN type can be discussed, it is necessary to demonstrate how all these different types of ANNs are collected. To find as many different types of ANNs a thorough search is performed in several literature repositories such as IEEE Xplore and Google Scholar, to identify articles, papers and books that discuss, compare or create an overview of various types of ANN. Furthermore, an extensive search is done to find blog posts and encyclopedia pages that cite or make references to scientific literature on the topic. The keywords used during searching are ``artificial neural network'', ``neural network'', ``neural network overview'' and ``neural network comparison''.
+
+\subsection{Perceptron and Multilayer Perceptron} \label{MLP}
+The perceptron is a concept first introduced by \cite{rosenblatt1958perceptron}, that models an artificial neuron. Essentially, a perceptron receives multiple input signals, each having an associated weight. These weighted inputs are summed up, and a bias is added to produce a weighted sum. This weighted sum is then passed through an activation function, which determines the output of the perceptron. Multiple perceptrons can be combined to form a Multilayer Perceptron (MLP) by connecting individual perceptrons in a layered architecture, where the output of one layer serves as the input to the next layer. The network can capture and learn complex patters by passing data through multiple layers activation functions that introduce nonlinearity into the data, which can be useful to find nonlinear relations in the data. These neural networks are the most basic form of Feedforward Neural Network (FFNN), which is why they are often called that. An MLP typically has one input layer, one or multiple hidden layer(s) and an output layer. Some commonly used activation functions in MLPs are sigmoid function ($\sigma(z) = \frac{1}{1+e^{-z}}$), hyperbolic tangent function ($tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$) and rectified linear unit function ($ReLU(z) = max(0,z)$). MLPs are usually trained using backpropagation, a form of supervised learning. Through an iterative process, data is passed through the neural network, results are collected, the error with the desired results is computed, this error is then backpropagated through the network from output layer to input layer, each perceptron then adjusts its weight and bias based on this error. This process is repeated until the error is reduced to a level that satisfies the neural network's user's acceptable margin of error. MLPs are often used for data classification to label data, regression to predict outputs based on certain inputs, pattern recognition in data or detecting anomalies in data.
+
+\subsection{Radial Basis Function Network} \label{RBFN}
+The Radial Basis Function Network (RBFN) is a form of MLP first introduced by \cite{moody1989fast} that differs in its hidden layer and activation functions. It only has one hidden layer instead of potential multiple hidden layers. Furthermore, it utilizes a radial basis function ($\phi(r) = \phi(||x - c||)$) instead of the ones mentioned in \autoref{MLP}. RBFNs are often used for function approximation, to approximate an unknown function based on input and output data, or interpolation, to estimate the values of a function at unknown points within a given range based on known inputs.
+
+\subsection{Recurrent Neural Network} \label{RNN}
+The Recurrent Neural Network (RNN) is one of the most basic forms of feedback neural network. The RNN was first introduced by \cite{elman1990finding}, in this paper a form of neural network is presented that has memory, through the use of recurrent (feedback) connections. How the RNN differs from the MLP is that each node in the hidden layer has an extra connection to itself, this forms the recurrent connection. Through these feedback connections the sum of the inputs not only depends on the inputs from the previous layer, but also the output of itself that loops back to its own input through the recurrent connection. Therefore, the output of the network is influenced by the order of input of the data. The RNN utilizes the same activation functions as the MLP. RNNs are good at processing sequential data, due to their memory capability. The training and learning of the RNN is therefore also done in a sequential manner, which can be done both supervised or unsupervised, based on the preferences of the user of the RNN. RNNs are often used for natural language processing, time series prediction, such as predicting weather, or speech recognition, due to sequential data typically being encountered in these contexts.
+
+\subsection{Long Short-Term Memory} \label{LSTM}
+The Long Short-Term Memory (LSTM) is a variation on the RNN. First introduced by \cite{hochreiter1997long}, this variation has mechanisms to selectively remember and forget information in the memory nodes of the network. Due to this, it is better at capturing long term dependencies in data. The network achieves this by keeping track of a Cell State and hidden state of each node. The Cell State represents the internal memory of the node and the hidden state represents the information that flows through the node. It also introduces multiple stages in which the data is processed. These stages are called ``Gates'' of which there are three: the Forget Gate, the Input Gate and the Output Gate. First, hidden state (information) from the previous time step ($t-1$) and the current time step ($t$) are passed through the Forget Gate, here a mathematical function determines what information from $t-1$ and $t$ should be forgotten. The Cell State is then updated based on the output of the Forget Gate. Then, the hidden state from $t-1$ and $t$ goes through the Input Gate, which determines what values in the Cell State should be updated or added in the memory of the cell. The output of the Input Gate is then multiplied with a vector of candidate values to update the Cell State. These candidate values are produced by another mathematical function based on the hidden state from $t-1$ and $t$. Lastly, the hidden state from $t-1$ and $t$ is passed through the Output Gate to determine what information should be output and passed on to the next time step ($t+1$). The output from the Output Gate is then multiplied with the Cell State to create the definitive output of the node. This information is then output to the next node and to $t+1$ of itself. The LSTM is trained in the same manner as an RNN and it is used for the same applications.
+
+\subsection{Gated Recurrent Unit} \label{GRU}
+The Gated Recurrent Unit (GRU) is another variation on the RNN. First introduced by \cite{chung2014empirical}, this variation functions similarly to the LSTM. Like the LSTM, it uses a hidden state and ``Gates'' to process information. The hidden state in the GRU is a combination of the Cell state and the hidden state of the LSTM. The GRU uses two gates instead of three: the Update Gate and the Output Gate, here the Update Gate is a merged version of the LSTM's Input Gate and Forget Gate. First, it takes the hidden state from $t-1$ and new information input from $t$ and these are put through the Update Gate to update the hidden state. Then, he hidden state from $t-1$ and new information input from $t$ go through the Output Gate to determine the output of the node. The generated output is used to update the hidden state of the node through a mathematical function and then the hidden state is output. Like the RNN and LSTM it has the same use cases and it is also trained in the same manner.
+
+\subsection{Bidirectional Recurrent Neural Networks} \label{BiRNN}
+Of the RNN and its variants there are also bidirectional versions. First presented by \cite{schuster1997bidirectional}, this version of the RNN can also receive information from the future by processing data sequentially in both directions. As an example, the unidirectional versions of the RNN variants are good at filling out sentences, like: ``In France they speak ...'' A unidirectional RNN would fill the dots in with the word ``french''. Thus, it is able to fill out sentences. However, when presented with a reversed scenario, such as ``In ... they speak French'', a unidirectional RNN must wait until the final part of the sentence is processed to fill the gap. Bidirectional RNNs, on the other hand, can receive information from the future at an earlier stage, allowing them to efficiently fill in the gap earlier in the processing timeline. Due to the RNN being bidirectional it processes the input in the regular sequential order as well as in the reverse sequential order. The information that is processed in reverse sequential order is then seen as the information from the future. Therefore a node can know what is at the start of the sequence as well as at the end of the sequence. As this is another variant on the RNN it has the same use cases and same training methods.
+
+\subsection{Echo State Network} \label{ESN}
+The Echo State Network is another form of Feedback Neural Network. First presented by \cite{jaeger2004harnessing}, it is unlike other forms of Feedback Neural Networks, due to ESNs having a large amount neurons in the range of 50 to 1000, unlike typical Feedback Neural Networks which usually have 5 to 30 neurons. As well as, only the connections from the reservoir, the layers between the input and output, to the output neurons are modified during learning. This modification is achieved through a linear regression task, in contrast to conventional Feedback Neural Network learning algorithms that tune all synaptic connections. The reservoir's internal neurons function as ``Echo Functions'', which try to reproduce external signals that are input into the network. The external signal is also called the ``Teacher Sequence'', since the goal of the ESN is to learn it and reproduce it. As the teacher sequence is fed into the output neuron, it excites the internal nodes through feedback connections. The activity of the internal nodes shows patterns or variations that are related to the features of the Teacher Sequence. The Echo Functions get their name from trying to ``echo'' (reproduce) the external signal. To make sure that the network captures a broad spectrum of features of the external input signal, it keeps the internal reservoir interconnectivity sparse. Due to the sparse interconnectivity of the reservoir, it decomposes into many loosely coupled subsystems, where each subsystem may capture different aspects of the input signal independently. ESNs are often used for applications where complex chronological patterns need to be found in time-series data, such stock prices, temperature readings, sales data or energy consumption, all over time.
+
+\subsection{Autoencoder} \label{AE}
+The Autoencoder (AE) is a type of Feedforward Neural Network, that is designed to compress and decompress information automatically. This type of Neural Network was first introduced by \cite{bourlard1988auto}. Information is input into the input layer of the AE, in the hidden layers up to the middle it is compressed, and then from there it is decompressed and then output, this makes AEs symmetrical. This is achieved by reducing the amount of nodes per layer up to and including the middle layer of the hidden layers. AEs are usually trained using backpropagation, where the error is calculated based on what was input and how the new compressed, then decompressed output differs from the original input. AEs are mostly used for data compression and data dimensionality reduction. The middle layer that contains the compressed data could be read out to store the compressed data, or to analyse the lower dimensional version to find patterns that are not visually present in the original.
+
+\subsection{Variational Autoencoder} \label{VAE}
+The Variational Autoencoder (VAE), first introduced by \cite{kingma2013auto}, is a type of Autoencoder that encodes and decodes based on a probabilistic distribution of the encoding space. This makes the goal of the VAE to encode input data into a lower dimensional space with the added feature of modeling a probability distribution in that space. This makes them useful for not only encoding and decoding. By creating a probability distribution in the lower dimensional data a VAE can be used as a generative model to create new or novel data points by sampling certain points from the distribution.
+
+\subsection{Denoising Autoencoder} \label{DAE}
+The Denoising Autoencoder (DAE), first introduced by \cite{vincent2008extracting}, is a variation on the Autoencoder designed to handle noisy input data. It is trained by feeding it noisy input data and then the error is computed based on the output compared to the noiseless input data. Through this method of training it looks at larger or broader features in the data that are not as sensitive to noise unlike smaller, less broad features. As the title implies the DAE is used for denoising data.
+
+\subsection{Sparse Autoencoder} \label{SAE}
+The Sparce Autoencoder (SAE), first introduced in \cite{ranzato2006efficient}, is a type of Autoencoder that in a certain sense does the opposite of a regular Autoencoder. Instead of encoding the data into "less" space, it aims to encode in "more" space. The hidden layers in SAEs have more nodes, but a sparsity constraint is imposed during training, where only a small fraction of neurons in the hidden layer are active at any given time. Moreover, backpropagation is also done in a sparse manner, by having a sparsity regulator only propagate back certain errors and train them per training cycle. SAEs are useful for extracting smaller features or more distinctive attributes in data.
+
+\subsection{Hopfield Network} \label{HN}
+The Hopfield Network (HN), first introduced by \cite{hopfield1982neural}, is a single layer Feedback Neural Network that is fully connected. Each node serves as input before training, during training they are then hidden and output is read from each node after. HNs are designed to store and retrieve patterns or states. For training, the patterns or states it should ``remember'' are given and then weights can be adjusted. After training, a partial state or pattern can be input and the network will converge to a ``remembered'' state. HNs are often used for pattern recognition or as content addressable memory.
+
+\subsection{Boltzmann Machine} \label{BM}
+The Boltzmann Machine (BM), first introduced by \cite{hinton1986learning}. is a single layer Feedback Neural Network that is fully connected, similar to the Hopfield Network. How it differs, is that a set of nodes serve as input and the rest are hidden. At the end of a full network update, the input nodes become output nodes. Each node in the network is binary, which means it can only take the value 0 or 1. A BM is stochastic which means it has some elements of randomness to it. The weights of the connections in a Boltzmann Machine are updated using stochastic gradient descent or a variant. Stochasticity is introduced through the random sampling of states during learning. The activation of the neurons is controlled by a global value that determines the stochasticity. If this value is higher the network will explore more different states and it will add more randomness. If this value is lower the network will stabilize into more stable and deterministic patterns. BMs are often used for unsupervised feature learning, allowing the network to automatically discover relevant features in the input data. BMs are also used for dimensionality reduction, capturing essential patterns in high-dimensional data. They are also used as recommender systems to give personalized content to users of an application, such as social media content algorithms.
+
+\subsection{Restricted Boltzmann Machine} \label{RBM}
+The Restricted Boltzmann Machine (RBM), first introduced by \cite{smolensky1986information}, is a variant on the Boltzmann Machine in which the input layer is fully connected to the hidden layer, while the input layer lacks self-connections, as does the hidden layer. This restriction simplifies the learning process and makes training more efficient. Due to the absence of connections within the same layer, the computation of conditional probabilities that determine the activation of nodes is simplified during the learning process. RBMs have the same applications as BMs.
+
+\subsection{Deep Belief Network} \label{DBN}
+Deep Belief Network (DBN), first introduced by \cite{bengio2006greedy}, is a name given to networks that are formed by ``stacking'' Restricted Boltzmann Machines and/or Variational Autoencoders, however it is not common that they are combined. Each building block of the stack is a singular RBM or VAE, where each building block only has to learn to encode the previous network. \cite{bengio2006greedy} dubs it greedy training, where "greedy" indicates making locally optimal choices to reach a satisfactory, although possibly not optimal, answer. DBNs are often trained using either backpropagation or contrastive divergence \footnote{A training method that simplifies the training process by iteratively adjusting the model's parameters based on sampled data, facilitating a more efficient approach to parameter optimization in neural network training. \cite{hinton2006fast}}. After training DBNs can be used to generate new data, based on the training data, or they can be used for data classification.
+
+\subsection{Convolutional Neural Network} \label{CNN}
+The Convolutional Neural Network (CNN), first introduced by \cite{lecun1998gradient}, is a type of neural network that uniquely uses a combination convolution and pooling in its layers. Due to its usage of convolution and pooling it excels at processing media such as images, audio, and video for classification and regression. 
+
+First convolution is done, where a filter, usually called a kernel, is applied to the data. The filter is a small matrix of weights that slides over the input data, computing the dot product at each step. Through this process, local features and patterns can be detected. For example for a 500 by 500 image, take an area of 50 by 50 pixels. Start in the top left of the image and for each step slide the 50 by 50 window to the right by one pixel. After reaching the border on the right, move one pixel down and start on the left again. The amount the window is moved by, usually called the stride, is determined by whether the user of the CNN wants a more detailed feature extraction (stride of one pixel) or less detailed feature extraction (stride of two, usually not more) in exchange for higher dimensionality reduction in the next layer and faster or more efficient processing. 
+
+After convolution a non-linear activation function is applied to introduce non-linearity into the data. The most commonly used activation function is the Rectified Linear Unit (ReLU). It replaces all negative pixel values in the feature map with zero and leaves positive values unchanged. 
+After the non-linear activation function comes the pooling step. In this step a down sampling operation is done that reduces the dimensionality of each feature map but retains key information. The most common pooling operation is max pooling, where a small window (e.g. 2x2) slides over the feature map, and only the maximum value in each window is preserved. This helps in retaining the most relevant information while discarding less important details and reducing the computational load. The three steps of convolution, activation, and pooling are done in what are called the convolutional layers of the network. These three steps are repeated until the CNN user is content with the reduced dimensionality of the data.
+After multiple cycles of convolution, activation and pooling comes the flattening step. After multiple cycles of the three steps mentioned before, the data remains multidimensional. To further process it in a CNN, the data must be flattened to one dimensional vector. This one dimensional vector can then be used as input for the fully connected layers which come after the convolutional layers.
+
+The final step in CNNs is either classification or regression depending on its use case. This is done by the fully connected layers, where each connection between nodes has a weight. This weight is determined by the training of the CNN based on the relationships between features in the input data and the final output. Again, an activation is applied to the output of each node. The final layer is then the output layer which has nodes corresponding to the number of classes in a classification task or a single node for regression tasks.
+
+Training of the network is done using a loss function. Data is fed through the network and the network does its classification or regression task. Then, the output of the network is compared to the actual labels or classes for the classification task, or the output value compared to the actual value for the regression task. The loss is determined based on this comparison, which is then used to compute a gradient for each weight. This gradient tells how much the loss would increase or decrease if the corresponding weight is adjusted. Based on this gradient the weights are updated. These steps are repeated until the network functions as intended by the user.
+
+As mentioned before, CNNs are useful for classification and regression tasks. For example, for classification, an image of an animal can be fed to the CNN and the output will say what animal is on the image. For regression, a picture of a house can be fed into the CNN and the CNN will give an approximate price of that house. For example, the CNN introduced by \cite{lecun1998gradient} excels at recognition of handwritten characters and Google's GoogLeNet \cite{szegedy2015going} performs well in image recognition, feature classification and object detection.
+
+\subsection{Deconvolutional Neural Networks} \label{DNN}
+Deconvolutional Neural Network (DNN), first introduced by \cite{zeiler2010deconvolutional}, is a type of neural network that does the inverse of a CNN. For example, it can be fed words such as dog or cat and the network will generate pictures that try to represent the input. The network is trained in such a way that its generated pictures are compared to real pictures. To achieve the inverse operation of a CNN, a DNN replaces pooling steps with interpolation and/or extrapolation steps. The layers that do this operation are called deconvolutional or upsampling layers, these correspond to the convolutional layers in a CNN. These layers play an important role in increasing the image detail of the feature maps. The network learns to fill in the gaps through methods like interpolation (predicting values between known points) and extrapolation (predicting values beyond the known range).
+
+\subsection{Deep Convolutional Inverse Graphics Network} \label{DCIGN}
+The Deep Convolutional Inverse Graphics Network (DCIGN), first introduced by \cite{kulkarni2015deep}, is a type of neural network that is similar to a Variational Autoencoder (VAE), however it uses a CNN as the ``encoder'' and a DNN as the ``decoder''. The network takes an input, such as an image, together with an instruction and then transforms this input based on the instruction. The network is able to achieve this by modeling features of the input data as probabilities. Subsequently, it employs a process similar to deconvolution, based on its learned feature probability distribution, to generate the transformed output.
+
+\subsection{Generative Adversarial Network} \label{GAN}
+The Generative Adverserial Network (GAN), first introduced by \cite{goodfellow2014generative}, combines two CNNs to form a neural network capable of data generation and discriminating real-life media from AI-generated media. The first CNN is called the ``generator'', this network generates data, such as images, based on inputs from the user. The second CNN is called the ``discriminator'', this takes the output of the first CNN together with real not generated data and it then tasked to distinguish what is fake or generated and what is not. Both parts are trained to get better at their tasks using a loss function. If the discriminator fails to properly differentiate the data, it will have a higher loss and based on this loss its weights are updated. If the discriminator properly differentiates, then the generator has failed and thus the loss will be higher for this part of the network, subsequently the weights of this part of the network are updated. The result is a network that gets better and better and generating data close to indiscriminable from real data, as well as a network that continuously improves in differentiating between real data and generated data.
+
+\subsection{Self Organizing Map} \label{SOM}
+The Self Organizing Map (SOM), first introduced by \cite{kohonen1982self}, is a type of neural network capable of unsupervised data classification. This network is trained in an unsupervised manner, where data is input and the network examines its neurons to identify the one that most closely corresponds to the input. If a neuron is identified as the best match for a particular input, its position or weights are adjusted to become more similar to the input. Neurons in a SOM are often organized in a topological map, therefore when a neuron's position or weight is adjusted, its neighbours' position or weight is adjusted as well. This is done to preserve the spatial relationships in the input space, encouraging similar inputs to map to neighboring regions. The extent to which neighbors are moved depends on the distance of the neighbors to the closest matching nodes. Nodes that are closer to the best-matching neuron experience a stronger influence or adjustment compared to neurons that are farther away.
+
+\subsection{Transformer} \label{Transformer}
+Transformers also known as Attention Networks, first introduced by \cite{vaswani2017attention}, are a type of neural network that use attention mechanisms to mitigate information decay in the network. Analogous to how recurrent neural networks address decay through memory. However, instead of relying on memory, transformers utilize attention to effectively preserve information across the input sequence.
+
+In the attention mechanism, each word or token in the input sequence is associated with three vectors: a query vector, a key vector, and a value vector. These vectors are derived from the representation of the input in the vector space itself and serve as the basis for calculating attention scores. The attention mechanism computes the attention scores between a query vector and key vectors of all other elements in the input sequence. This computation typically involves a dot product operation followed by normalization using a softmax function ($\sigma(\vec{z})_{i} = \frac{e^{z_{i}}}{\Sigma^{K}_{j=1}e^{z_{j}}}$, where $i$ is the input, $j$ is the output, for $i = 1, ..., K$). The result is a set of attention weights representing the importance of each token in relation to the input element that is being processed, called the query token. 
+
+The attention weights obtained are used to compute a weighted sum of the value vectors. The weighted sum operation combines information from all input elements in the sequence into a single vector representation, called the context vector. This context vector captures the most relevant information from the input sequence with respect to the query token. By giving more weight to elements deemed more relevant based on the attention scores, the weighted sum ensures that the context vector contains a representation of the most important information for the query token. The context vector is used to enhance the initial representation of the query token, adding context based on the full input sequence. This enhanced version of the query token is then used in the subsequent steps.
+
+To capture different aspects of the input sequence effectively, many transformer architectures employ multi-head attention. This involves performing attention computations in parallel multiple times, each with different sets of learned query, key, and value projections. The resulting attention heads capture diverse aspects of the input, allowing the model to attend to different parts of the sequence simultaneously.
+
+A transformer can be divided into two components. The first is the previously explained (often multi-head) attention component. The second component is a Feedforward Neural Network, that functions as explained in \autoref{MLP}. The attention mechanism allows transformers to capture long-range dependencies and improves the model's ability to capture intricate patterns in the data. Transformers are trained in a supervised manner, where weights and parameters in the network are adjusted using backpropagation. Transformers perform well in text and language processing tasks. For example, modern large language models (often known as LLMs), such as Open AI's GPT and Google's Gemini, are instances of the transformer architecture.
+
+\subsection{Spiking Neural Networks}
+Spiking Neural Networks (SNNs) are a type of artificial neural network inspired by the biological neural networks found in the brain. Unlike traditional artificial neural networks, which primarily use continuous-valued activations and operate in discrete time steps, SNNs communicate through discrete, asynchronous events called spikes, which model the firing of neurons in biological systems. The concept was first introduced by \cite{mead2012analog} in 1989, which introduced VLSI (Very Large-Scale Integration) circuits inspired by biological neural systems. The concept was later refined by \cite{izhikevich2003simple}, where a simplified model of spiking neurons was introduced and its computational capabilities were demonstrated.
+
+In spiking neural networks, information is encoded in the form of spikes or action potentials. Each neuron accumulates incoming spikes from its connected neurons. When the accumulated input surpasses a certain threshold, the neuron generates an output spike, which can then propagate to other neurons in the network. This threshold-crossing mechanism allows SNNs to process information in a highly parallel and event-driven manner, mimicking the behavior of biological neurons.
+
+SNNs can be divided into two types, rate-based SNNs and time-based SNNs. In rate based SNNs the encoding of a value is done by the rate of the incoming spike. These networks are trained using traditional learning methods, such as backpropagation. In timing based SNNs, the encoding of a value depends on when the spike arrives in relation to a tracked time cycle or the initiation of spike timing. Training is done through either traditional methods or spike time dependent plasticity (STDP) \footnote{Spike time dependent plasticity (STDP), in the context of spiking neural networks, is a rule that increases the synaptic strength (corresponds to weight in other ANN types) of an incoming spike if it's timing is before that of the output spike. Vice versa the weight is reduced if the time of an incoming spike is after the output spike. This rule determines whether the incoming spike contributes to reaching the threshold to generate an output spike. \cite{bi1998synaptic}}. 
+
+The goal of SNNs is to closely model biological neural networks, this practice is often called neuromorphic computing. Due to this SNNs are versatile in their potential applications. For these applications SNNs offer potential advantages in terms of energy efficiency and parallel processing, due to its unique computational approach.
+
+\section{Discussion} \label{Discussion} % & Conclusion?
+In this discussion, the selection of particular artificial neural networks to include in this report will be explored, along with the rationale for their inclusion and exclusion, as well as the assessment of relevance of the information presented.
+
+The report exclusively covers artificial neural network types distinguished by their unique functionalities or layer architectures. For example, convolutional neural networks are characterized by their convolution layers, while autoencoders distinguished by their distinct layer arrangements and shapes to achieve encoding and decoding functionalities. Furthermore, certain network types can be grouped together based on shared architectural elements. For example, all types of convolutional networks (CNN, DNN, DCIGN and GAN) use convolutional elements, or the different kinds of recurrent neural networks (RNN, LSTM, GRU and ESN) that utilize feedback to account for context from previous inputs. However, the primary focus of this report is on neural networks that stand out not only as distinct types but also as entities that expand beyond mere size variations or the addition of trivial functionalities, such as different initialization schemes for weights, various layer normalization techniques or computation simplification techniques. An example of such a computation simplification technique, are binarized neural networks, where the inputs and outputs are a binary value. This simplifies computation within a layer, but requires more layers for more complex tasks. Another example is Google's GoogLeNet Convolutional Neural Network, which uses their ``Inception'' module \cite{szegedy2015going}. This module features multiple parallel convolutional layers with varying filter sizes, each followed by a pooling layer, then merging the outputs using concatenation. This module allows for improved utilization of the computing resources inside the network, however the overall structure and function is still a Convolutional Neural Network.
+
+This report was written during the latter half of 2023 and the beginning of 2024. Therefore, any advancements in the artificial neural network field beyond this date are not covered in this report. Readers of this report are free to make an updated version, by accessing the \LaTeX \space open source files. These are available on GitHub at (citation). % recompile one final time, upload source files to github and download pdf
+
+\section{Conclusion} \label{Conclusion} %ask if should be merged
+In summary, this report aims to provide an overview of the current state-of-the-art Artificial Neural Networks. First, background on the subject was given, explaining each component of an Artificial Neural Network. Next, each type of network architecture was described and explained. Lastly, the validity and actuality of this report was discussed. As the landscape of artificial neural networks continues to evolve, with new architectures emerging and advancements unfolding, the necessity for updated iterations of this report remains important, serving as a valuable resource for future students or researchers interested in this dynamic field.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+%\section{Ease of Use}
+
+% \subsection{Maintaining the Integrity of the Specifications}
+
+% The IEEEtran class file is used to format your paper and style the text. All margins, 
+% column widths, line spaces, and text fonts are prescribed; please do not 
+% alter them. You may note peculiarities. For example, the head margin
+% measures proportionately more than is customary. This measurement 
+% and others are deliberate, using specifications that anticipate your paper 
+% as one part of the entire proceedings, and not as an independent document. 
+% Please do not revise any of the current designations.
+
+% \section{Prepare Your Paper Before Styling}
+% Before you begin to format your paper, first write and save the content as a 
+% separate text file. Complete all content and organizational editing before 
+% formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on 
+% proofreading, spelling and grammar.
+
+% Keep your text and graphic files separate until after the text has been 
+% formatted and styled. Do not number text heads---{\LaTeX} will do that 
+% for you.
+
+% \subsection{Abbreviations and Acronyms}\label{AA}
+% Define abbreviations and acronyms the first time they are used in the text, 
+% even after they have been defined in the abstract. Abbreviations such as 
+% IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use 
+% abbreviations in the title or heads unless they are unavoidable.
+
+% \subsection{Units}
+% \begin{itemize}
+% \item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
+% \item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
+% \item Do not mix complete spellings and abbreviations of units: ``Wb/m\textsuperscript{2}'' or ``webers per square meter'', not ``webers/m\textsuperscript{2}''. Spell out units when they appear in text: ``. . . a few henries'', not ``. . . a few H''.
+% \item Use a zero before decimal points: ``0.25'', not ``.25''. Use ``cm\textsuperscript{3}'', not ``cc''.)
+% \end{itemize}
+
+% \subsection{Equations}
+% Number equations consecutively. To make your 
+% equations more compact, you may use the solidus (~/~), the exp function, or 
+% appropriate exponents. Italicize Roman symbols for quantities and variables, 
+% but not Greek symbols. Use a long dash rather than a hyphen for a minus 
+% sign. Punctuate equations with commas or periods when they are part of a 
+% sentence, as in:
+% \begin{equation}
+% a+b=\gamma\label{eq}
+% \end{equation}
+
+% Be sure that the 
+% symbols in your equation have been defined before or immediately following 
+% the equation. Use ``\eqref{eq}'', not ``Eq.~\eqref{eq}'' or ``equation \eqref{eq}'', except at 
+% the beginning of a sentence: ``Equation \eqref{eq} is . . .''
+
+% \subsection{\LaTeX-Specific Advice}
+
+% Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
+% of ``hard'' references (e.g., \verb|(1)|). That will make it possible
+% to combine sections, add equations, or change the order of figures or
+% citations without having to go through the file line by line.
+
+% Please don't use the \verb|{eqnarray}| equation environment. Use
+% \verb|{align}| or \verb|{IEEEeqnarray}| instead. The \verb|{eqnarray}|
+% environment leaves unsightly spaces around relation symbols.
+
+% Please note that the \verb|{subequations}| environment in {\LaTeX}
+% will increment the main equation counter even when there are no
+% equation numbers displayed. If you forget that, you might write an
+% article in which the equation numbers skip from (17) to (20), causing
+% the copy editors to wonder if you've discovered a new method of
+% counting.
+
+% {\BibTeX} does not work by magic. It doesn't get the bibliographic
+% data from thin air but from .bib files. If you use {\BibTeX} to produce a
+% bibliography you must send the .bib files. 
+
+% {\LaTeX} can't read your mind. If you assign the same label to a
+% subsubsection and a table, you might find that Table I has been cross
+% referenced as Table IV-B3. 
+
+% {\LaTeX} does not have precognitive abilities. If you put a
+% \verb|\label| command before the command that updates the counter it's
+% supposed to be using, the label will pick up the last counter to be
+% cross referenced instead. In particular, a \verb|\label| command
+% should not go before the caption of a figure or a table.
+
+% Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
+% will not stop equation numbers inside \verb|{array}| (there won't be
+% any anyway) and it might stop a wanted equation number in the
+% surrounding equation.
+
+% \subsection{Some Common Mistakes}\label{SCM}
+% \begin{itemize}
+% \item The word ``data'' is plural, not singular.
+% \item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
+% \item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
+% \item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
+% \item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
+% \item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
+% \item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
+% \item Do not confuse ``imply'' and ``infer''.
+% \item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
+% \item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
+% \item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
+% \end{itemize}
+% An excellent style manual for science writers is \cite{b7}.
+
+% \subsection{Authors and Affiliations}
+% \textbf{The class file is designed for, but not limited to, six authors.} A 
+% minimum of one author is required for all conference articles. Author names 
+% should be listed starting from left to right and then moving down to the 
+% next line. This is the author sequence that will be used in future citations 
+% and by indexing services. Names should not be listed in columns nor group by 
+% affiliation. Please keep your affiliations as succinct as possible (for 
+% example, do not differentiate among departments of the same organization).
+
+% \subsection{Identify the Headings}
+% Headings, or heads, are organizational devices that guide the reader through 
+% your paper. There are two types: component heads and text heads.
+
+% Component heads identify the different components of your paper and are not 
+% topically subordinate to each other. Examples include Acknowledgments and 
+% References and, for these, the correct style to use is ``Heading 5''. Use 
+% ``figure caption'' for your Figure captions, and ``table head'' for your 
+% table title. Run-in heads, such as ``Abstract'', will require you to apply a 
+% style (in this case, italic) in addition to the style provided by the drop 
+% down menu to differentiate the head from the text.
+
+% Text heads organize the topics on a relational, hierarchical basis. For 
+% example, the paper title is the primary text head because all subsequent 
+% material relates and elaborates on this one topic. If there are two or more 
+% sub-topics, the next level head (uppercase Roman numerals) should be used 
+% and, conversely, if there are not at least two sub-topics, then no subheads 
+% should be introduced.
+
+% \subsection{Figures and Tables}
+% \paragraph{Positioning Figures and Tables} Place figures and tables at the top and 
+% bottom of columns. Avoid placing them in the middle of columns. Large 
+% figures and tables may span across both columns. Figure captions should be 
+% below the figures; table heads should appear above the tables. Insert 
+% figures and tables after they are cited in the text. Use the abbreviation 
+% ``Fig.~\ref{fig}'', even at the beginning of a sentence.
+
+% \begin{table}[htbp]
+% \caption{Table Type Styles}
+% \begin{center}
+% \begin{tabular}{|c|c|c|c|}
+% \hline
+% \textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
+% \cline{2-4} 
+% \textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
+% \hline
+% copy& More table copy$^{\mathrm{a}}$& &  \\
+% \hline
+% \multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
+% \end{tabular}
+% \label{tab1}
+% \end{center}
+% \end{table}
+
+% \begin{figure}[htbp]
+% \centerline{\includegraphics{fig1.png}}
+% \caption{Example of a figure caption.}
+% \label{fig}
+% \end{figure}
+
+% Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
+% rather than symbols or abbreviations when writing Figure axis labels to 
+% avoid confusing the reader. As an example, write the quantity 
+% ``Magnetization'', or ``Magnetization, M'', not just ``M''. If including 
+% units in the label, present them within parentheses. Do not label axes only 
+% with units. In the example, write ``Magnetization (A/m)'' or ``Magnetization 
+% \{A[m(1)]\}'', not just ``A/m''. Do not label axes with a ratio of 
+% quantities and units. For example, write ``Temperature (K)'', not 
+% ``Temperature/K''.
+
+% \section*{Acknowledgment}
+
+% The preferred spelling of the word ``acknowledgment'' in America is without 
+% an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
+% G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
+% acknowledgments in the unnumbered footnote on the first page.
+
+% \section*{References}
+
+% Please number citations consecutively within brackets \cite{b1}. The 
+% sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
+% number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
+% the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+
+% Number footnotes separately in superscripts. Place the actual footnote at 
+% the bottom of the column in which it was cited. Do not put footnotes in the 
+% abstract or reference list. Use letters for table footnotes.
+
+% Unless there are six authors or more give all authors' names; do not use 
+% ``et al.''. Papers that have not been published, even if they have been 
+% submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
+% that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
+% Capitalize only the first word in a paper title, except for proper nouns and 
+% element symbols.
+
+% For papers published in translation journals, please give the English 
+% citation first, followed by the original foreign-language citation \cite{b6}.
+
+% \begin{thebibliography}{00}
+% \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+% \bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+% \bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+% \bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+% \bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+% \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+% \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+% \end{thebibliography}
+% \vspace{12pt}
+% \color{red}
+% IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
+\end{document}
